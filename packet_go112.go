@@ -33,7 +33,8 @@ type Packet struct {
 func NewPacket() *Packet {
 	p := &Packet{}
 
-	C.av_init_packet(&p.avPacket)
+	// C.av_init_packet(&p.avPacket)
+	p.avPacket = *C.av_packet_alloc()
 
 	p.avPacket.data = nil
 	p.avPacket.size = 0
@@ -154,6 +155,7 @@ func (p *Packet) SetStreamIndex(val int) *Packet {
 
 func (p *Packet) Free() {
 	C.av_packet_unref(&p.avPacket)
+	c.av_packet_free(&p.avPacket)
 }
 
 func (p *Packet) Time(timebase AVRational) int {

@@ -155,7 +155,7 @@ func (p *Packet) SetStreamIndex(val int) *Packet {
 
 func (p *Packet) Free() {
 	C.av_packet_unref(&p.avPacket)
-	c.av_packet_free(&p.avPacket)
+	C.av_packet_free(&p.avPacket)
 }
 
 func (p *Packet) Time(timebase AVRational) int {
